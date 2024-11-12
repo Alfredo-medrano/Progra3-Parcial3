@@ -12,8 +12,7 @@ app = Flask(__name__)
 app.secret_key = '123456'  
 app.register_blueprint(login_bp)  
 
-
-API_KEY_METEOSOURCE = 'nce9e73tukc0zenzl52hcd2xnojbc8c45e595gfi'
+API_KEY_OPENWEATHER = '0471dcffb143c505ff2ae6507489feb1'
 
 cities = [
     'San Salvador', 'Santa Ana', 'San Miguel', 'La Libertad', 'Usulután',
@@ -41,14 +40,15 @@ def get_coordinates(city):
     return city_coordinates.get(city, None)
 
 def get_air_quality(lat, lon):
-    url = f'https://www.meteosource.com/api/v1/free/point?lat={lat}&lon={lon}&sections=air_quality&language=es&units=metric&key={API_KEY_METEOSOURCE}'
+    url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY_OPENWEATHER}'
     try:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        if 'current' in data and 'air_quality' in data['current']:
-            air_quality = data['current']['air_quality']
-            return air_quality
+        if 'list' in data and len(data['list']) > 0:
+            air_quality_data = data['list'][0]
+            pollutants = air_quality_data['components']
+            return pollutants
         else:
             print(f"No hay datos de calidad del aire disponibles en la respuesta: {data}")
     except requests.RequestException as e:
@@ -87,11 +87,10 @@ def index():
         coords = get_coordinates(selected_city)
         if coords:
             air_quality = get_air_quality(coords['lat'], coords['lon'])
-            if air_quality and 'pollutants' in air_quality:
-                pollutants = air_quality['pollutants']
+            if air_quality:
                 data = pd.DataFrame([
-                    {'Contaminante': key, 'Concentración': value['concentration']}
-                    for key, value in pollutants.items()
+                    {'Contaminante': key, 'Concentración': value}
+                    for key, value in air_quality.items()
                 ])
                 graphJSON = plot_graph(data)
             else:
@@ -106,15 +105,13 @@ def generate_report():
     coords = get_coordinates(city)
     if coords:
         air_quality = get_air_quality(coords['lat'], coords['lon'])
-        if air_quality and 'pollutants' in air_quality:
+        if air_quality:
             buffer = BytesIO()
             p = canvas.Canvas(buffer, pagesize=letter)
             p.drawString(100, 750, f"Informe de Calidad del Aire para {city}")
             p.drawString(100, 730, "Contaminantes y Concentraciones:")
             y_position = 710
-            pollutants = air_quality['pollutants']
-            for pollutant, info in pollutants.items():
-                concentration = info['concentration']
+            for pollutant, concentration in air_quality.items():
                 p.drawString(100, y_position, f"{pollutant}: {concentration} μg/m³")
                 y_position -= 20
             p.save()
