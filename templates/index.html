@@ -1,63 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calidad del Aire</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-green-50 text-gray-800">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center text-green-700 mb-6">Consulta la Calidad del Aire</h1>
-        
-        <form method="POST" class="bg-white p-6 rounded-lg shadow-md mb-6 max-w-lg mx-auto">
-            <label for="city" class="block text-lg font-semibold text-gray-600 mb-2">Selecciona la ciudad:</label>
-            <select name="city" id="city" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" required>
-                <option value="" disabled selected>Elige una ciudad</option>
-                {% for city in cities %}
-                <option value="{{ city }}">{{ city }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
-                Consultar
-            </button>
-        </form>
+{% extends "base.html" %}
 
-        {% if data is not none and not data.empty %}
-        <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
-            <h2 class="text-2xl font-semibold text-green-700 text-center mb-4">Resultados de Calidad del Aire</h2>
-            <div class="flex justify-center mb-4">
-                <img src="data:image/png;base64,{{ graphJSON }}" alt="Gráfico de Calidad del Aire" class="rounded-md shadow-md" />
-            </div>
-            <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-                <thead>
-                    <tr class="bg-green-200 text-gray-700">
-                        <th class="py-2 px-4 border-b">Contaminante</th>
-                        <th class="py-2 px-4 border-b">Concentración (μg/m³)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for index, row in data.iterrows() %}
-                    <tr class="text-center">
-                        <td class="py-2 px-4 border-b">{{ row['Contaminante'] }}</td>
-                        <td class="py-2 px-4 border-b">{{ row['Concentración'] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+{% block title %}Página Principal{% endblock %}
 
-            <form action="/generate_report" method="POST" class="mt-4 text-center">
-                <input type="hidden" name="city" value="{{ request.form['city'] }}">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Descargar Informe PDF
-                </button>
-            </form>
-        </div>
-        {% else %}
-        <div class="mt-8 text-center text-gray-600">
-            <p>No hay datos disponibles. Por favor, selecciona una ciudad válida.</p>
-        </div>
-        {% endif %}
-    </div>
-</body>
-</html>
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Bienvenido al Sistema de Gestión</h1>
+    <p>Selecciona una opción en la barra de navegación para continuar.</p>
+    <a href="#" class="button">Explorar Más</a>
+</div>
+{% endblock %}

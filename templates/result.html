@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Resultado del Cálculo{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+    <h1>Resultado del Cálculo</h1>
+    <p><strong>Dispositivo:</strong> {{ device_name }}</p>
+    <p><strong>Consumo Mensual:</strong> {{ monthly_consumption }} kWh</p>
+    <p><strong>Consejo para ahorrar energía:</strong> {{ tip }}</p>
+    <a href="{{ url_for('index') }}" class="button">Volver</a>
+</div>
+{% endblock %}

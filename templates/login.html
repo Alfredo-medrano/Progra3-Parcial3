@@ -1,40 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/login.css') }}">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold text-center text-gray-700 mb-6">Iniciar sesión</h2>
-        <form method="POST" action="{{ url_for('login.login') }}" class="space-y-4">
-            <div>
-                <label for="username" class="block text-sm font-medium text-gray-600">Usuario</label>
-                <input type="text" id="username" name="username" required
-                       class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-600">Contraseña</label>
-                <input type="password" id="password" name="password" required
-                       class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-            <button type="submit"
-                    class="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                Iniciar sesión
-            </button>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="../static/videoY.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+    </div>
+
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        <form method="POST" action="{{ url_for('login.login') }}">
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar Sesión</button>
         </form>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="mt-4 space-y-2">
-                    {% for category, message in messages %}
-                        <li class="text-center text-red-500">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <p>Bienvenido a nuestra plataforma</p>
     </div>
 </body>
 </html>
-    

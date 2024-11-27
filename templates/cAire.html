@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Calidad del Aire{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h1>Monitoreo de Calidad del Aire</h1>
+    <form method="POST" action="{{ url_for('cAire.aire') }}">
+        <label for="city">Selecciona una ciudad:</label>
+        <select name="city" id="city">
+            {% for city in cities %}
+                <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Ver Calidad del Aire</button>
+    </form>
+    
+    {% if data is not none %}
+        <h2>Resultados:</h2>
+        <img src="data:image/png;base64,{{ graphJSON }}" alt="Gráfico de Calidad del Aire">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Contaminante</th>
+                    <th>Concentración (μg/m³)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in data.iterrows() %}
+                <tr>
+                    <td>{{ contaminantes_nombres.get(row['Contaminante'], row['Contaminante']) }}</td>
+                    <td>{{ row['Concentración'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <form method="POST" action="{{ url_for('cAire.generate_report') }}">
+            <input type="hidden" name="city" value="{{ request.form['city'] }}">
+            <button type="submit">Generar Informe</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pronóstico del Clima
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header class="text-center">
+        <h1>Pronóstico del Tiempo</h1>
+        <p>Consulta el clima por departamento</p>
+    </header>
+
+    <section id="weather-app" class="mt-10">
+        <div class="text-center">
+            <label for="departamento">Selecciona un departamento:</label>
+            <select id="departamento" class="p-2 border border-gray-300 rounded">
+                <option value="San Salvador">San Salvador</option>
+                <option value="Santa Ana">Santa Ana</option>
+                <option value="San Miguel">San Miguel</option>
+                <option value="La Libertad">La Libertad</option>
+                <option value="Ahuachapán">Ahuachapán</option>
+                <option value="Sonsonate">Sonsonate</option>
+                <option value="Usulután">Usulután</option>
+                <option value="La Paz">La Paz</option>
+                <option value="Cabañas">Cabañas</option>
+                <option value="Chalatenango">Chalatenango</option>
+                <option value="Morazán">Morazán</option>
+                <option value="San Vicente">San Vicente</option>
+                <option value="Cuscatlán">Cuscatlán</option>
+                <option value="La Unión">La Unión</option>
+            </select>
+            
+        </div>
+
+        <!-- Spinner de carga -->
+        <div id="loading" class="hidden text-center mt-5">
+            <i class="wi wi-day-sunny"></i>
+            <p>Cargando datos...</p>
+        </div>
+
+        <!-- Contenedor de pronóstico -->
+        <div id="forecast" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+            <!-- Los datos del clima se insertarán aquí -->
+        </div>
+    </section>
+
+    <footer class="text-center mt-5">
+        <p>Weather App &copy; 2024 - Basado en datos de Meteoblue</p>
+    </footer>
+</div>
+{% endblock %}
