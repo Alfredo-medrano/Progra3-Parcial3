@@ -1,14 +1,27 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block title %}Resultado del Cálculo{% endblock %}
-
-{% block content %}
-
-<div class="page-container">
-    <h1>Resultado del Cálculo</h1>
-    <p><strong>Dispositivo:</strong> {{ device_name }}</p>
-    <p><strong>Consumo Mensual:</strong> {{ monthly_consumption }} kWh</p>
-    <p><strong>Consejo para ahorrar energía:</strong> {{ tip }}</p>
-    <a href="{{ url_for('index') }}" class="button">Volver</a>
-</div>
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del Cálculo</title>
+    <link rel="stylesheet" href="../static/CSS/result.css"> 
+    {% include "./components/Navbar.html" %}
+</head>
+<body class="bg-gray-100">
+    <div class="container">
+        <header class="header">
+            <h1>Resultado del Consumo de Energía</h1>
+        </header>
+        <section>
+            <div class="result-box">
+                <h2>Dispositivo Seleccionado: <span id="device-name">{{ device_name }}</span></h2>
+                <p>El consumo mensual estimado es: <span id="monthly-consumption">{{ monthly_consumption }} kWh</span></p>
+                <p><strong>Consejo de Ahorro:</strong></p>
+                <p id="tip">{{ tip }}</p>
+            </div>
+        </section>
+    </div>
+    <script src="../static/js/result.js"></script>
+</body>
+</html>

@@ -1,15 +1,23 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block title %}Página Principal{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - Clima</title>
+    <link rel="stylesheet" href="../static/CSS/home.css">
+    {% include "components/Navbar.html" %}
+</head>
 
-{% block head %}
+<body>
 
-{% endblock %}
+  
 
-{% block content %}
-<div class="home-container">
-    <h1>Bienvenido al Sistema de Gestión</h1>
-    <p>Selecciona una opción en la barra de navegación para continuar.</p>
-    <a href="#" class="button">Explorar Más</a>
-</div>
-{% endblock %}
+    <div class="container">
+        <h1 class="title">Bienvenido al Sistema de Clima</h1>
+        <p class="subtitle">Consulta el pronóstico y las condiciones del clima en tiempo real.</p>
+        <a href="{{ url_for('cclima.clima_home') }}" class="explore-btn">Explorar Pronósticos</a>
+    </div>
+</body>
+
+</html>

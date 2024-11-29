@@ -1,12 +1,11 @@
 from flask import Blueprint, render_template, jsonify
-from MetoApi import obtener_clima_por_dia
+from MetoApi import obtener_clima_por_dia, departamentos
 
-# Crear el Blueprint
 cclima_bp = Blueprint('cclima', __name__, template_folder='templates')
 
 @cclima_bp.route('/')
 def clima_home():
-    return render_template('meteo.html')
+    return render_template('meteo.html', departamentos=departamentos.keys())
 
 @cclima_bp.route('/weather_data/<departamento>', methods=['GET'])
 def weather_data(departamento):

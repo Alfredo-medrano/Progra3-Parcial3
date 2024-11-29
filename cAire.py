@@ -18,8 +18,6 @@ contaminantes_nombres = {
     "co": "Monóxido de Carbono"
 }
 
-
-
 def plot_graph(data):
     plt.figure(figsize=(10, 5))
     plt.bar(data['Contaminante'], data['Concentración'], color='blue')
@@ -30,9 +28,10 @@ def plot_graph(data):
     img = BytesIO()
     plt.savefig(img, format='png')
     img.seek(0)
-    graphJSON = base64.b64encode(img.getvalue()).decode()
+    graphJSON = base64.b64encode(img.getvalue()).decode('utf-8')  # Codificamos en base64 y decodificamos a utf-8
     plt.close()
     return graphJSON
+
 
 @cAire_bp.route('/aire', methods=['GET', 'POST'])
 def aire():
@@ -41,6 +40,12 @@ def aire():
     
     data = None
     graphJSON = None
+    cities = [
+    'Ahuachapán', 'Cabañas', 'Chalatenango', 'La Libertad', 
+    'La Paz', 'La Unión', 'Morazán', 'San Miguel', 'San Salvador', 
+    'San Vicente', 'Santa Ana', 'Sonsonate', 'Usulután', 'Cuscatlán'
+]
+
     if request.method == 'POST':
         selected_city = request.form['city']
         coords = get_coordinates(selected_city)
@@ -50,7 +55,7 @@ def aire():
                 data = pd.DataFrame([{
                     'Contaminante': key, 'Concentración': value
                 } for key, value in air_quality.items()])
-                graphJSON = plot_graph(data)
+                graphJSON = plot_graph(data)  # Generar la gráfica
             else:
                 data = pd.DataFrame()
         else:
@@ -58,11 +63,10 @@ def aire():
     return render_template(
         'cAire.html', 
         data=data, 
-        graphJSON=graphJSON, 
+        graphJSON=graphJSON,  # Pasar la gráfica a la plantilla
         cities=cities, 
         contaminantes_nombres=contaminantes_nombres
     )
-
 
 @cAire_bp.route('/generate_report', methods=['POST'])
 def generate_report():

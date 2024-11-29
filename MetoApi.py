@@ -30,7 +30,7 @@ def obtener_clima_por_dia(departamento):
     
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Lanza un error si el código de estado no es 200
+        response.raise_for_status()
         data = response.json()
         
         data_day = data.get("data_day", {})
@@ -57,4 +57,3 @@ def obtener_clima_por_dia(departamento):
     except KeyError as e:
         print(f"Error al procesar la respuesta de la API: {e}")
         return {'error': 'Datos incompletos o malformados recibidos'}
-

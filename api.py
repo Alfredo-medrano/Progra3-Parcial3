@@ -1,15 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_file
 import requests
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
 API_KEY_OPENWEATHER = '0471dcffb143c505ff2ae6507489feb1'
-
-cities = [
-    'San Salvador', 'Santa Ana', 'San Miguel', 'La Libertad', 'Usulután',
-    'Sonsonate', 'La Unión', 'Ahuachapán', 'Cuscatlán', 'Chalatenango',
-    'Cabañas', 'San Vicente', 'Morazán'
-]
 
 city_coordinates = {
     'San Salvador': {'lat': 13.6929, 'lon': -89.2182},
@@ -28,20 +21,41 @@ city_coordinates = {
 }
 
 def get_coordinates(city):
+    """Obtiene las coordenadas de una ciudad a partir del diccionario `city_coordinates`."""
     return city_coordinates.get(city, None)
 
 def get_air_quality(lat, lon):
+    """Obtiene la calidad del aire a partir de la API de OpenWeather."""
     url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY_OPENWEATHER}'
+    
     try:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
+        
         if 'list' in data and len(data['list']) > 0:
-            air_quality_data = data['list'][0]
-            pollutants = air_quality_data['components']
-            return pollutants
+            air_quality_data = data['list'][0]['components']
+            return air_quality_data
         else:
             print(f"No hay datos de calidad del aire disponibles en la respuesta: {data}")
     except requests.RequestException as e:
         print(f"Error al obtener la calidad del aire: {e}")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e}")
+    
     return None
+
+def generate_pdf(air_quality_data, city_name):
+    file_name = f'Calidad_Aire_{city_name}.pdf'
+    c = canvas.Canvas(file_name, pagesize=letter)
+    
+    c.drawString(100, 750, f"Reporte de Calidad del Aire para {city_name}")
+    c.drawString(100, 730, "Contaminantes y sus concentraciones:")
+    
+    y_position = 710
+    for contaminante, concentracion in air_quality_data.items():
+        c.drawString(100, y_position, f"{contaminante}: {concentracion} μg/m³")
+        y_position -= 20
+    
+    c.save()
+    print(f"Reporte generado: {file_name}")

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Weather App{% endblock %}</title>
+    <link rel="stylesheet" href="../static/CSS/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">    
+
+    
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+
+    <nav class="bg-blue-600 p-4 shadow-lg">
+        <ul class="flex justify-between space-x-4">
+            <li><a href="{{ url_for('home') }}" class="text-white hover:text-gray-200">Home</a></li>
+            <li><a href="{{ url_for('cAire.aire') }}" class="text-white hover:text-gray-200">Calidad del Aire</a></li>
+            <li><a href="{{ url_for('cenergia.consumoE') }}" class="text-white hover:text-gray-200">Consumo de Energía</a></li>
+            <li><a href="{{ url_for('cclima.clima_home') }}" class="text-white hover:text-gray-200">Pronóstico del Clima</a></li>
+            <li><a href="{{ url_for('login.logout') }}" class="text-white hover:text-gray-200">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+
+</html>

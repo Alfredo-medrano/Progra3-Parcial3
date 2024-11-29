@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function mostrarSpinner() {
         loadingSpinner.classList.remove('hidden');
-        forecastContainer.innerHTML = ''; // Limpiar datos anteriores
+        forecastContainer.innerHTML = '';
     }
 
     function ocultarSpinner() {
@@ -13,13 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function mostrarPronostico(data) {
-        forecastContainer.innerHTML = ''; // Limpiar datos anteriores
+        console.log("Datos recibidos del servidor:", data);
+        forecastContainer.innerHTML = ''; 
         if (data.error) {
             forecastContainer.innerHTML = `<p>${data.error}</p>`;
             return;
         }
 
-        data.forecast.forEach(day => {
+        data.forEach(day => {
             const dayCard = `
                 <div class="card">
                     <h3>${day.date}</h3>
@@ -36,19 +37,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         mostrarSpinner();
 
-        fetch(`/clima/weather_data/${departamento}`)
+        fetch(`/cclima/weather_data/${departamento}`)
             .then(response => response.json())
             .then(data => {
                 ocultarSpinner();
                 mostrarPronostico(data);
             })
             .catch(error => {
-                console.error('Error al obtener los datos:', error);
+                console.error("Error al obtener datos:", error); // Depuración
                 ocultarSpinner();
                 forecastContainer.innerHTML = '<p>Error al obtener los datos</p>';
             });
     });
 
-    // Cargar pronóstico inicial
     departamentoSelect.dispatchEvent(new Event('change'));
 });
