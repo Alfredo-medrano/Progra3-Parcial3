@@ -21,11 +21,10 @@ city_coordinates = {
 }
 
 def get_coordinates(city):
-    """Obtiene las coordenadas de una ciudad a partir del diccionario `city_coordinates`."""
+   
     return city_coordinates.get(city, None)
 
 def get_air_quality(lat, lon):
-    """Obtiene la calidad del aire a partir de la API de OpenWeather."""
     url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY_OPENWEATHER}'
     
     try:

@@ -55,7 +55,7 @@ def aire():
                 data = pd.DataFrame([{
                     'Contaminante': key, 'Concentración': value
                 } for key, value in air_quality.items()])
-                graphJSON = plot_graph(data)  # Generar la gráfica
+                graphJSON = plot_graph(data)  
             else:
                 data = pd.DataFrame()
         else:
@@ -63,7 +63,7 @@ def aire():
     return render_template(
         'cAire.html', 
         data=data, 
-        graphJSON=graphJSON,  # Pasar la gráfica a la plantilla
+        graphJSON=graphJSON, 
         cities=cities, 
         contaminantes_nombres=contaminantes_nombres
     )

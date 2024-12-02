@@ -94,13 +94,10 @@ def consumoE():
             hours_per_day = float(request.form.get('hours_per_day', 0))
             days_per_month = int(request.form.get('days_per_month', 0))
             
-            # Validar datos
             if not device_name or wattage <= 0 or hours_per_day <= 0 or days_per_month <= 0:
                 return render_template('consumoE.html', error="Por favor, completa todos los campos con valores válidos.")
             
-            # Calcular consumo mensual
             monthly_consumption = (wattage * hours_per_day * days_per_month) / 1000
-            # Obtener los consejos de ahorro
             tips = energy_saving_tips.get(device_name, ["Apaga los dispositivos cuando no estén en uso para ahorrar energía."])
             tip = random.choice(tips)
             
