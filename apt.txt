@@ -1,0 +1,5 @@
+build-essential
+libfreetype6-dev
+libjpeg62-turbo-dev
+liblcms2-dev
+zlib1g-dev
