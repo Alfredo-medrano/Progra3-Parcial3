@@ -1,109 +1,53 @@
 body {
-    font-family: Arial, sans-serif;
-    background: url('https://th.bing.com/th/id/R.fea7f7c75191a10fc1636bfde3495938?rik=E2Po1ZTJ6EgaVw&pid=ImgRaw&r=0') no-repeat center center/cover;
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #2C3E50;
+    color: #ECF0F1;
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
     text-align: center;
-    margin-bottom: 50px;
-    box-shadow: rgba(93, 161, 113, 0.26);
-    background-color: rgba(223, 247, 239, 0.329);
-    border-radius: 10%;
-    padding: 20px;
-    max-width: 90%;
-    width: 400px;
-    margin-top: 30px;
 }
 
 .title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #0a0a0a;
+    font-size: 3em;
+    color: #1ABC9C;
     margin-bottom: 10px;
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    color: #4a5568;
+    font-size: 1.2em;
+    color: #BDC3C7;
     margin-bottom: 20px;
 }
 
 .explore-btn {
     padding: 10px 20px;
-    background-color: #1e9c299d;
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
-    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #1ABC9C;
+    border: none;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .explore-btn:hover {
-    background-color: #77a9db;
+    background-color: #16A085;
+    transform: scale(1.05);
 }
 
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 768px) {
-    .title {
-        font-size: 2.5rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-
-    .explore-btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-
-    .container {
-        width: 90%;
-        margin-top: 20px;
-    }
-
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 2rem;
-    }
-
-    .subtitle {
-        font-size: 0.9rem;
-    }
-
-    .explore-btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-
-    .container {
-        width: 95%;
-        margin-top: 10px;
-    }
-
-    .forecast-card {
-        width: 100%;
-        margin-bottom: 10px;
-    }
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #34495E;
+    color: #ECF0F1;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }

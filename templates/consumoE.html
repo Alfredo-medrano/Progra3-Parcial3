@@ -5,61 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consumo de Energía</title>
-    <link rel="stylesheet" href="../static/CSS/consumoE.css"> 
+    <link rel="stylesheet" href="../static/CSS/consumoE.css">
     {% include "./components/Navbar.html" %}
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto p-6">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-extrabold text-yellow-600">Consumo de Energía</h1>
-            <p class="text-lg">Monitoreo del consumo de energía en tiempo real</p>
-        </header>
-        <section id="energy-consumption">
-            <div class="bg-white p-6 shadow-lg rounded-md">
-                <h2 class="text-2xl font-semibold mb-4">Introduce los datos</h2>
-                <form method="POST">
-                    <div class="mb-4">
-                        <label for="device_name" class="block text-lg">Selecciona un dispositivo:</label>
-                        <select id="device_name" name="device_name" class="w-full p-2 border border-gray-300 rounded-md">
-                            <option value="refrigerador">Refrigerador</option>
-                            <option value="aire acondicionado">Aire Acondicionado</option>
-                            <option value="lavadora">Lavadora</option>
-                            <option value="televisor">Televisor</option>
-                            <option value="computadora">Computadora</option>
-                            <option value="microondas">Microondas</option>
-                            <option value="secadora">Secadora</option>
-                            <option value="ventilador">Ventilador</option>
-                            <option value="impresora">Impresora</option>
-                            <option value="cafetera">Cafetera</option>
-                            <option value="aspiradora">Aspiradora</option>
-                            <option value="lavavajillas">Lavavajillas</option>
-                            <option value="hervidor de agua">Hervidor de Agua</option>
-                            <option value="hornos eléctricos">Hornos Eléctricos</option>
-                        </select>
-                    </div>
 
-                    <div class="mb-4">
-                        <label for="wattage" class="block text-lg">Potencia del dispositivo (en vatios):</label>
-                        <input type="number" id="wattage" name="wattage" class="w-full p-2 border border-gray-300 rounded-md" required>
-                    </div>
+<body>
+    <header class="header">
+        <h1 id="main-title" class="main-title hidden">Consumo de Energía</h1>
+        <p id="subtitle" class="subtitle hidden">Monitoreo del consumo de energía en tiempo real</p>
+    </header>
 
-                    <div class="mb-4">
-                        <label for="hours_per_day" class="block text-lg">Horas de uso por día:</label>
-                        <input type="number" id="hours_per_day" name="hours_per_day" class="w-full p-2 border border-gray-300 rounded-md" required>
-                    </div>
+    <section id="energy-consumption">
+        <div id="form-card" class="form-card hidden">
+            <h2 class="form-title">Introduce los datos</h2>
+            <form method="POST" class="form">
+                <div class="form-group">
+                    <label for="device_name">Selecciona un dispositivo:</label>
+                    <select id="device_name" name="device_name" class="form-control">
+                        <option value="refrigerador">Refrigerador</option>
+                        <option value="aire acondicionado">Aire Acondicionado</option>
+                        <option value="lavadora">Lavadora</option>
+                        <option value="televisor">Televisor</option>
+                        <option value="computadora">Computadora</option>
+                        <option value="microondas">Microondas</option>
+                        <option value="secadora">Secadora</option>
+                        <option value="ventilador">Ventilador</option>
+                        <option value="impresora">Impresora</option>
+                        <option value="cafetera">Cafetera</option>
+                        <option value="aspiradora">Aspiradora</option>
+                        <option value="lavavajillas">Lavavajillas</option>
+                        <option value="hervidor de agua">Hervidor de Agua</option>
+                        <option value="hornos eléctricos">Hornos Eléctricos</option>
+                    </select>
+                </div>
 
-                    <div class="mb-4">
-                        <label for="days_per_month" class="block text-lg">Días de uso por mes:</label>
-                        <input type="number" id="days_per_month" name="days_per_month" class="w-full p-2 border border-gray-300 rounded-md" required>
-                    </div>
+                <div class="form-group">
+                    <label for="wattage">Potencia del dispositivo (en vatios):</label>
+                    <input type="number" id="wattage" name="wattage" class="form-control" required>
+                </div>
 
-                    <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600">Calcular</button>
-                </form>
-                {% if error %}
-                    <p class="text-red-500 mt-4">{{ error }}</p>
-                {% endif %}
-            </div>
-        </section>
-    </div>
+                <div class="form-group">
+                    <label for="hours_per_day">Horas de uso por día:</label>
+                    <input type="number" id="hours_per_day" name="hours_per_day" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="days_per_month">Días de uso por mes:</label>
+                    <input type="number" id="days_per_month" name="days_per_month" class="form-control" required>
+                </div>
+
+                <button id="btn-submit" type="submit" class="btn-submit hidden">Calcular</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="../static/JS/Cenergia.js"></script>
 </body>
+
 </html>

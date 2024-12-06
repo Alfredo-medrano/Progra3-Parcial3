@@ -6,7 +6,7 @@ from cClima import cclima_bp
 
 app = Flask(__name__)
 app.secret_key = '123456'
-
+ 
 app.register_blueprint(login_bp, url_prefix='/login')
 app.register_blueprint(cenergia_bp, url_prefix='/cenergia')
 app.register_blueprint(cAire_bp, url_prefix='/cAire')

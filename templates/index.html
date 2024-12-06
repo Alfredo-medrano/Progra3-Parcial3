@@ -6,18 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal - Clima</title>
     <link rel="stylesheet" href="../static/CSS/home.css">
-    {% include "components/Navbar.html" %}
 </head>
 
 <body>
+    <header>
+        <nav>
+            {% include "components/Navbar.html" %}
+        </nav>
+    </header>
 
-  
+    <main>
+        <div class="container">
+            <h1 class="title">Bienvenido al Sistema de Clima</h1>
+            <p class="subtitle">Consulta el pronóstico y las condiciones del clima en tiempo real.</p>
+        </div>
 
-    <div class="container">
-        <h1 class="title">Bienvenido al Sistema de Clima</h1>
-        <p class="subtitle">Consulta el pronóstico y las condiciones del clima en tiempo real.</p>
-        <a href="{{ url_for('cclima.clima_home') }}" class="explore-btn">Explorar Pronósticos</a>
-    </div>
+        <section class="info-section">
+            <div class="info-box animate">
+                <h2>Visión</h2>
+                <p>Ser un referente líder en la generación de datos precisos y confiables sobre el clima, calidad del aire y consumo de energía, promoviendo la sostenibilidad y el bienestar global.</p>
+            </div>
+        
+            <div class="info-box animate">
+                <h2>Misión</h2>
+                <p>Proveer herramientas y datos accesibles para ayudar a las personas y organizaciones a tomar decisiones informadas sobre el clima, la calidad del aire y el consumo energético.</p>
+                <a href="{{ url_for('cclima.clima_home') }}" class="explore-btn">Explorar Pronósticos</a>
+            </div>
+        
+            <div class="info-box animate">
+                <h2>Objetivos</h2>
+                <ul>
+                    <li>Ofrecer información precisa y actualizada sobre el clima en tiempo real.</li>
+                    <li>Monitorear la calidad del aire para fomentar un entorno saludable.</li>
+                    <li>Ayudar en la gestión eficiente del consumo de energía.</li>
+                    <li>Promover la conciencia ambiental y la sostenibilidad.</li>
+                </ul>
+                
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Clima. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../static/JS/home.js"></script>
 </body>
 
 </html>

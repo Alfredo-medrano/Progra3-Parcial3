@@ -20,9 +20,21 @@ city_coordinates = {
     'Morazán': {'lat': 13.7667, 'lon': -88.1000}
 }
 
+contaminantes_nombres = {
+    "pm10": "Partículas PM10",
+    "pm2_5": "Partículas PM2.5",
+    "no2": "Dióxido de Nitrógeno",
+    "so2": "Dióxido de Azufre",
+    "o3": "Ozono",
+    "co": "Monóxido de Carbono"
+}
+
 def get_coordinates(city):
-   
-    return city_coordinates.get(city, None)
+    if city in city_coordinates:
+        return city_coordinates[city]
+    else:
+        print(f"Ciudad '{city}' no encontrada.")
+        return None
 
 def get_air_quality(lat, lon):
     url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY_OPENWEATHER}'
@@ -53,8 +65,22 @@ def generate_pdf(air_quality_data, city_name):
     
     y_position = 710
     for contaminante, concentracion in air_quality_data.items():
-        c.drawString(100, y_position, f"{contaminante}: {concentracion} μg/m³")
+        contaminante_nombre = contaminantes_nombres.get(contaminante, contaminante)
+        c.drawString(100, y_position, f"{contaminante_nombre}: {concentracion} μg/m³")
         y_position -= 20
     
     c.save()
     print(f"Reporte generado: {file_name}")
+
+if __name__ == "__main__":
+    # Ejemplo de uso
+    ciudad = "San Salvador"
+    coords = get_coordinates(ciudad)
+    if coords:
+        air_quality = get_air_quality(coords['lat'], coords['lon'])
+        if air_quality:
+            generate_pdf(air_quality, ciudad)
+        else:
+            print("No se pudo obtener la calidad del aire.")
+    else:
+        print("No se pudieron obtener las coordenadas de la ciudad.")

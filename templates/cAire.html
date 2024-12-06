@@ -5,46 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calidad del Aire</title>
-    <link rel="stylesheet" href="../static/CSS/aire.css"> 
+    <link rel="stylesheet" href="../static/CSS/aire.css">
     {% include "./components/Navbar.html" %}
 </head>
 
 <body>
-
     <div class="container">
         <header class="header">
             <h1>Calidad del Aire</h1>
             <p>Monitoreo de la calidad del aire en tiempo real</p>
         </header>
 
-
         <section id="city-selection">
-            <form method="POST" action="{{ url_for('cAire.aire') }}" class="form-container">
-                <label for="city" class="form-label">Selecciona una ciudad:</label>
-                <select name="city" id="city" required class="form-select">
-                    <option value="" disabled selected>Elige una ciudad</option>
-                    {% for city in cities %}
-                        <option value="{{ city }}">{{ city }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" class="form-button">Ver calidad del aire</button>
-            </form>
-        </section>
-        
-
-        <section id="air-quality">
-            <div class="graph-container">
-                <h2>Gráfica de Calidad del Aire</h2>
-                <div id="chart-container">
-                    {% if graphJSON %}
-                        <img src="data:image/png;base64,{{ graphJSON }}" alt="Gráfico de Calidad del Aire">
-                    {% else %}
-                        <p>No se pudo generar la gráfica.</p>
-                    {% endif %}
-                </div>
+            <div class="form-container">
+                <h2 class="section-title">Selecciona una ciudad</h2>
+                <form method="POST" action="{{ url_for('cAire.aire') }}">
+                    <label for="city" class="form-label">Elige una ciudad:</label>
+                    <select name="city" id="city" required class="form-select">
+                        <option value="" disabled>Elige una ciudad</option>
+                        {% for city in cities %}
+                            <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="form-button">Ver calidad del aire</button>
+                </form>
             </div>
         </section>
-        
 
         <section id="data-table">
             <h2>Datos de Contaminantes</h2>
@@ -54,34 +40,34 @@
                         <tr>
                             <th>Contaminante</th>
                             <th>Concentración (μg/m³)</th>
+                            <th>Visualización</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="contaminant-data">
                         {% if data is not none and not data.empty %}
                             {% for index, row in data.iterrows() %}
                                 <tr>
-                                    <td>{{ row['Contaminante'] }}</td>
+                                    <td class="contaminant-name" data-abbreviation="{{ row['Contaminante'] }}">{{ row['Contaminante'] }}</td>
                                     <td>{{ row['Concentración'] }}</td>
+                                    <td>
+                                        <div class="bar-container">
+                                            <div class="bar" style="width: {{ row['Concentración'] / 100 * 100 }}%;"></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         {% else %}
                             <tr>
-                                <td colspan="2" class="no-data">No hay datos disponibles</td>
+                                <td colspan="3" class="no-data">No hay datos disponibles</td>
                             </tr>
                         {% endif %}
                     </tbody>
                 </table>
             </div>
         </section>
-
-        <section id="generate-report">
-            <form action="{{ url_for('cAire.generate_report') }}" method="POST">
-                <input type="hidden" name="city" value="{{ selected_city }}">
-                <button type="submit">Generar Informe PDF</button>
-            </form>
-        </section>
     </div>
 
+    <script src="../static/JS/aire.js"></script>
 </body>
 
 </html>
